@@ -47,7 +47,7 @@ const CohortHeatmap = () => {
     <div className="rounded-xl border border-border bg-card p-4">
       {/* Header */}
       <div className="mb-1">
-        <h3 className="font-display text-sm font-semibold text-foreground">Messages by Client Cohort</h3>
+        <h3 className="font-display text-xs font-semibold text-foreground">Messages by Client Cohort</h3>
         <p className="text-[10px] text-muted-foreground">Weekly average message volume per user from start date.</p>
       </div>
 

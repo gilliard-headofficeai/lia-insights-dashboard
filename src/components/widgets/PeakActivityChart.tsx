@@ -12,25 +12,27 @@ const PeakActivityChart = () => {
   const baseFill = isDark ? "hsl(20,25%,28%)" : "hsl(30,18%,78%)";
 
   return (
-    <div className="rounded-xl border border-border bg-card p-3.5">
-      <div className="mb-2 flex items-center justify-between">
-        <h3 className="font-display text-sm font-semibold text-foreground">Peak Activity Hours</h3>
+    <div className="flex h-full flex-col rounded-xl border border-border bg-card p-3.5">
+      <div className="mb-1.5 flex items-center justify-between">
+        <h3 className="font-display text-xs font-semibold text-foreground">Peak Activity Hours</h3>
         <Badge className="border-primary/30 bg-primary/10 text-primary text-[10px]">
           Most Active: 14:00 – 16:00
         </Badge>
       </div>
-      <ResponsiveContainer width="100%" height={150}>
-        <BarChart data={peakHoursData} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
-          <XAxis dataKey="hour" tick={{ fill: mutedColor, fontSize: 10 }} axisLine={false} tickLine={false} interval={3} />
-          <YAxis tick={{ fill: mutedColor, fontSize: 10 }} axisLine={false} tickLine={false} />
-          <Tooltip contentStyle={{ backgroundColor: tooltipBg, border: `1px solid ${tooltipBorder}`, borderRadius: 8, color: tooltipText, fontSize: 12 }} />
-          <Bar dataKey="volume" radius={[3, 3, 0, 0]} maxBarSize={14}>
-            {peakHoursData.map((entry, idx) => (
-              <Cell key={idx} fill={entry.isPeak ? peakFill : baseFill} />
-            ))}
-          </Bar>
-        </BarChart>
-      </ResponsiveContainer>
+      <div className="flex-1 min-h-0">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={peakHoursData} margin={{ top: 5, right: 5, left: -20, bottom: 0 }} barCategoryGap="8%">
+            <XAxis dataKey="hour" tick={{ fill: mutedColor, fontSize: 9 }} axisLine={false} tickLine={false} interval={3} />
+            <YAxis tick={{ fill: mutedColor, fontSize: 9 }} axisLine={false} tickLine={false} />
+            <Tooltip contentStyle={{ backgroundColor: tooltipBg, border: `1px solid ${tooltipBorder}`, borderRadius: 8, color: tooltipText, fontSize: 11 }} />
+            <Bar dataKey="volume" radius={[3, 3, 0, 0]}>
+              {peakHoursData.map((entry, idx) => (
+                <Cell key={idx} fill={entry.isPeak ? peakFill : baseFill} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 };
