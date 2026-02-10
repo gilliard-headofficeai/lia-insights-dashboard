@@ -122,9 +122,9 @@ const BrazilMap = ({
                 : "hsl(20 30% 14%)"
             }
             fillOpacity={isSelected ? 0.6 : isHovered ? 0.35 : 1}
-            stroke="hsl(var(--primary))"
-            strokeWidth={isSelected ? "1.5" : "0.6"}
-            strokeOpacity={isSelected ? 0.9 : 0.25}
+            stroke={isHovered && !isSelected ? "hsl(var(--foreground))" : "hsl(var(--primary))"}
+            strokeWidth={isSelected ? "1.5" : isHovered ? "1" : "0.6"}
+            strokeOpacity={isSelected ? 0.9 : isHovered ? 0.6 : 0.25}
             className="cursor-pointer transition-all duration-300"
             onMouseEnter={() => setHoveredRegion(region)}
             onMouseLeave={() => setHoveredRegion(null)}
@@ -148,7 +148,7 @@ const GeoDistribution = () => {
       <div className="rounded-xl border border-border bg-card p-4 flex flex-col min-h-0">
         <div className="flex items-center justify-between mb-2">
           <div>
-            <h3 className="font-display text-sm font-semibold text-foreground flex items-center gap-1.5">
+            <h3 className="font-display text-base font-semibold text-foreground flex items-center gap-1.5">
               <MapPin className="h-3.5 w-3.5 text-primary" />
               Brazil — Geographic Performance
             </h3>
@@ -189,13 +189,13 @@ const GeoDistribution = () => {
             <div key={kpi.label} className="rounded-xl border border-border bg-card p-2.5 flex flex-col items-center gap-1">
               <kpi.icon className="h-3 w-3 text-primary" />
               <span className="text-[9px] text-muted-foreground uppercase tracking-wider">{kpi.label}</span>
-              <span className="text-sm font-bold text-foreground font-display">{kpi.value}</span>
+              <span className="font-display text-base font-bold text-foreground">{kpi.value}</span>
             </div>
           ))}
         </div>
 
         {/* Top Performing Cities */}
-        <div className="rounded-xl border border-border bg-card p-3 flex flex-col flex-1 min-h-0">
+        <div className="rounded-xl border border-border bg-card p-3 flex flex-col flex-1 min-h-0 overflow-hidden">
           <div className="flex items-center justify-between mb-2.5">
             <h4 className="text-xs font-semibold text-foreground flex items-center gap-1.5">
               <TrendingUp className="h-3 w-3 text-primary" />
@@ -216,7 +216,7 @@ const GeoDistribution = () => {
                   </div>
                   <span className="text-[10px] text-muted-foreground">{city.value.toLocaleString()} leads</span>
                 </div>
-                <div className="h-1 w-full rounded-full bg-muted/50 overflow-hidden ml-6">
+                <div className="h-1 rounded-full bg-muted/50 overflow-hidden ml-6 mr-0">
                   <div className="h-full rounded-full bg-primary transition-all duration-500" style={{ width: `${city.percent}%` }} />
                 </div>
               </div>
