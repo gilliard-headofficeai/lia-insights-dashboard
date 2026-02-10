@@ -18,8 +18,8 @@ const DeepDive = () => {
         </div>
         <CohortHeatmap />
         <div className="grid grid-cols-1 gap-2.5 lg:grid-cols-2">
-          <ConversionBarriers />
           <PeakActivityChart />
+          <ConversionBarriers />
         </div>
       </DraggableGrid>
     </DashboardLayout>
