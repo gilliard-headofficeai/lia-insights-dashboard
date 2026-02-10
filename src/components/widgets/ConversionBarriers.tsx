@@ -1,25 +1,32 @@
 import { barrierData } from "@/data/mockData";
-import { AlertTriangle } from "lucide-react";
 import { useState } from "react";
 
 const ConversionBarriers = () => {
-  const [hovered, setHovered] = useState(false);
+  const [tooltip, setTooltip] = useState<{ label: string; value: number; x: number; y: number } | null>(null);
 
   return (
-    <div
-      className="flex h-full flex-col rounded-xl border border-border bg-card p-3.5"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      <h3 className="mb-2 font-display text-xs font-semibold text-foreground">Conversion Barriers & Funnel</h3>
-      <div className="flex-1 space-y-2">
+    <div className="flex h-full flex-col rounded-xl border border-border bg-card p-3.5">
+      <h3 className="mb-2 font-display text-sm font-semibold text-foreground">Conversion Barriers & Funnel</h3>
+      <div className="flex-1 space-y-2.5">
         {barrierData.map((item) => (
           <div key={item.label}>
-            <div className="mb-0.5 flex items-center justify-between text-[11px]">
+            <div className="mb-0.5 flex items-center justify-between text-xs">
               <span className="text-foreground">{item.label}</span>
               <span className="font-semibold text-foreground">{item.value}%</span>
             </div>
-            <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
+            <div
+              className="h-2 w-full overflow-hidden rounded-full bg-muted cursor-default"
+              onMouseEnter={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                setTooltip({
+                  label: item.label,
+                  value: item.value,
+                  x: rect.left + rect.width / 2,
+                  y: rect.top - 8,
+                });
+              }}
+              onMouseLeave={() => setTooltip(null)}
+            >
               <div
                 className="h-full rounded-full transition-all"
                 style={{ width: `${item.value}%`, backgroundColor: item.color }}
@@ -29,13 +36,13 @@ const ConversionBarriers = () => {
         ))}
       </div>
 
-      {/* Insight box - only on hover */}
-      {hovered && (
-        <div className="mt-2 flex items-start gap-1.5 rounded-lg border border-primary/30 bg-primary/5 p-2 transition-all duration-200">
-          <AlertTriangle className="mt-0.5 h-3 w-3 shrink-0 text-primary" />
-          <p className="text-[10px] text-foreground/80 leading-tight">
-            <span className="font-semibold text-primary">Insight:</span> Underage candidates constitute the largest drop-off at 35%.
-          </p>
+      {/* Tooltip popover */}
+      {tooltip && (
+        <div
+          className="pointer-events-none fixed z-50 rounded-md bg-popover px-2.5 py-1.5 text-xs font-semibold text-foreground shadow-lg border border-border"
+          style={{ left: tooltip.x, top: tooltip.y, transform: "translate(-50%, -100%)" }}
+        >
+          {tooltip.label}: {tooltip.value}%
         </div>
       )}
     </div>
