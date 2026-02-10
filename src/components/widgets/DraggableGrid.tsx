@@ -65,7 +65,7 @@ const DraggableGrid = ({ children, storageKey = "deep-dive" }: DraggableGridProp
   }, []);
 
   return (
-    <div className="flex flex-1 flex-col gap-2">
+    <div className="flex flex-1 flex-col gap-2 pb-0.5">
       {order.map((childIdx, posIdx) => (
         <div
           key={childIdx}
