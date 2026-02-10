@@ -18,15 +18,22 @@ const getCellBg = (value: number | null) => {
   return `rgba(212, 175, 55, ${intensity})`;
 };
 
-const getCellText = (value: number | null) => {
+const getCellText = (value: number | null, isDark: boolean) => {
   if (value === null) return "";
   const intensity = value / MAX_VALUE;
-  if (intensity > 0.65) return "hsl(24, 52%, 7%)";      // dark text on bright gold
-  if (intensity > 0.35) return "hsl(43, 55%, 70%)";      // light gold
-  return "hsl(35, 15%, 50%)";                             // muted
+  if (isDark) {
+    if (intensity > 0.65) return "hsl(24, 52%, 7%)";
+    if (intensity > 0.35) return "hsl(43, 55%, 70%)";
+    return "hsl(35, 15%, 50%)";
+  }
+  // Light mode: stronger contrast
+  if (intensity > 0.65) return "hsl(24, 40%, 10%)";
+  if (intensity > 0.35) return "hsl(24, 35%, 20%)";
+  return "hsl(24, 20%, 35%)";
 };
 
 const CohortHeatmap = () => {
+  const isDark = document.documentElement.classList.contains("dark");
   const [tooltip, setTooltip] = useState<{ value: number; x: number; y: number } | null>(null);
 
   return (
@@ -80,7 +87,7 @@ const CohortHeatmap = () => {
                         className="flex h-9 w-full min-w-[52px] cursor-default items-center justify-center rounded-md text-xs font-semibold transition-all hover:scale-105 hover:brightness-110"
                         style={{
                           backgroundColor: getCellBg(val),
-                          color: getCellText(val),
+                          color: getCellText(val, isDark),
                         }}
                         onMouseEnter={(e) => {
                           const rect = e.currentTarget.getBoundingClientRect();
