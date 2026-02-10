@@ -42,8 +42,8 @@ const AppSidebar = () => {
             AU
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-medium text-foreground truncate">Admin User</p>
-            <p className="text-[10px] text-muted-foreground truncate">admin@lia.com</p>
+            <p className="text-xs font-medium text-sidebar-foreground truncate">Admin User</p>
+            <p className="text-[10px] text-sidebar-foreground/60 truncate">admin@lia.com</p>
           </div>
           <LogOut className="h-3.5 w-3.5 text-muted-foreground" />
         </div>
