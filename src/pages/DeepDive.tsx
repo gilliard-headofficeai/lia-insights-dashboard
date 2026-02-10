@@ -17,7 +17,7 @@ const DeepDive = () => {
           ))}
         </div>
         <CohortHeatmap />
-        <div className="grid flex-1 grid-cols-1 gap-2 lg:grid-cols-2">
+        <div className="grid h-full grid-cols-1 gap-2 lg:grid-cols-2">
           <PeakActivityChart />
           <ConversionBarriers />
         </div>
