@@ -5,7 +5,7 @@ import { kpiData } from "@/data/mockData";
 const Index = () => {
   return (
     <DashboardLayout title="Overview" breadcrumb={["LIA Analytics", "Overview"]}>
-      <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mb-3 grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
         {kpiData.map((kpi) => (
           <KPICard key={kpi.title} {...kpi} />
         ))}
