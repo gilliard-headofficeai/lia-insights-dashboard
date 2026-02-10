@@ -13,7 +13,7 @@ const AppHeader = ({ title, breadcrumb = [] }: AppHeaderProps) => {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <header className="flex items-center justify-between border-b border-border bg-card/50 px-6 py-4 backdrop-blur-sm">
+    <header className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-card/80 px-6 py-5 backdrop-blur-sm">
       <div>
         {breadcrumb.length > 0 && (
           <div className="mb-1 flex items-center gap-1.5 text-xs text-muted-foreground">

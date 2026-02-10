@@ -3,7 +3,6 @@ import KPICard from "@/components/widgets/KPICard";
 import CohortHeatmap from "@/components/widgets/CohortHeatmap";
 import ConversionBarriers from "@/components/widgets/ConversionBarriers";
 import PeakActivityChart from "@/components/widgets/PeakActivityChart";
-import GeoDistribution from "@/components/widgets/GeoDistribution";
 import DraggableGrid from "@/components/widgets/DraggableGrid";
 import { kpiData } from "@/data/mockData";
 
@@ -22,7 +21,6 @@ const DeepDive = () => {
           <ConversionBarriers />
           <PeakActivityChart />
         </div>
-        <GeoDistribution />
       </DraggableGrid>
     </DashboardLayout>
   );
