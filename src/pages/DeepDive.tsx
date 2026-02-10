@@ -11,13 +11,13 @@ const DeepDive = () => {
     <DashboardLayout title="Deep Dive Analysis" breadcrumb={["LIA Analytics", "Deep Dive"]}>
       <DraggableGrid>
         {/* KPI row */}
-        <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
           {kpiData.map((kpi) => (
             <KPICard key={kpi.title} {...kpi} />
           ))}
         </div>
         <CohortHeatmap />
-        <div className="grid grid-cols-1 gap-2.5 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-2 lg:grid-cols-2" style={{ minHeight: 0 }}>
           <PeakActivityChart />
           <ConversionBarriers />
         </div>

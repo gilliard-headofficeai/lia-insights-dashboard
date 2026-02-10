@@ -4,7 +4,9 @@ import GeoDistribution from "@/components/widgets/GeoDistribution";
 const GeoPage = () => {
   return (
     <DashboardLayout title="Geo Distribution" breadcrumb={["LIA Analytics", "Geo Distribution"]}>
-      <GeoDistribution />
+      <div className="flex-1 min-h-0">
+        <GeoDistribution />
+      </div>
     </DashboardLayout>
   );
 };

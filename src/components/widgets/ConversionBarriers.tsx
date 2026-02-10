@@ -7,19 +7,19 @@ const ConversionBarriers = () => {
 
   return (
     <div
-      className="rounded-xl border border-border bg-card p-3.5"
+      className="flex h-full flex-col rounded-xl border border-border bg-card p-3.5"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <h3 className="mb-2.5 font-display text-sm font-semibold text-foreground">Conversion Barriers & Funnel</h3>
-      <div className="space-y-2.5">
+      <h3 className="mb-2 font-display text-xs font-semibold text-foreground">Conversion Barriers & Funnel</h3>
+      <div className="flex-1 space-y-2">
         {barrierData.map((item) => (
           <div key={item.label}>
-            <div className="mb-1 flex items-center justify-between text-xs">
+            <div className="mb-0.5 flex items-center justify-between text-[11px]">
               <span className="text-foreground">{item.label}</span>
               <span className="font-semibold text-foreground">{item.value}%</span>
             </div>
-            <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
+            <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
               <div
                 className="h-full rounded-full transition-all"
                 style={{ width: `${item.value}%`, backgroundColor: item.color }}
@@ -30,16 +30,14 @@ const ConversionBarriers = () => {
       </div>
 
       {/* Insight box - only on hover */}
-      <div
-        className={`mt-2.5 flex items-start gap-2 rounded-lg border border-primary/30 bg-primary/5 p-2.5 transition-all duration-200 ${
-          hovered ? "opacity-100 max-h-20" : "opacity-0 max-h-0 overflow-hidden mt-0 p-0 border-0"
-        }`}
-      >
-        <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
-        <p className="text-[10px] text-foreground/80 leading-tight">
-          <span className="font-semibold text-primary">Insight:</span> Underage candidates constitute the largest drop-off at 35%.
-        </p>
-      </div>
+      {hovered && (
+        <div className="mt-2 flex items-start gap-1.5 rounded-lg border border-primary/30 bg-primary/5 p-2 transition-all duration-200">
+          <AlertTriangle className="mt-0.5 h-3 w-3 shrink-0 text-primary" />
+          <p className="text-[10px] text-foreground/80 leading-tight">
+            <span className="font-semibold text-primary">Insight:</span> Underage candidates constitute the largest drop-off at 35%.
+          </p>
+        </div>
+      )}
     </div>
   );
 };
