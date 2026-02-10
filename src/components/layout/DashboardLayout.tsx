@@ -9,11 +9,11 @@ interface DashboardLayoutProps {
 
 const DashboardLayout = ({ children, title, breadcrumb }: DashboardLayoutProps) => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="h-screen overflow-hidden bg-background">
       <AppSidebar />
-      <div className="ml-60">
+      <div className="ml-56 flex h-screen flex-col">
         <AppHeader title={title} breadcrumb={breadcrumb} />
-        <main className="p-4">{children}</main>
+        <main className="flex-1 overflow-auto p-3">{children}</main>
       </div>
     </div>
   );
