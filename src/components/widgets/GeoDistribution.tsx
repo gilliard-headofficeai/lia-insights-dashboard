@@ -1,7 +1,23 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { MapPin, Users, Target, Clock, TrendingUp, ChevronRight } from "lucide-react";
+import brazilMap from "@svg-maps/brazil";
 
-// Region data keyed by selection
+// Group states into regions
+const REGION_STATES: Record<string, string[]> = {
+  North: ["ac", "am", "ap", "pa", "ro", "rr", "to"],
+  Northeast: ["al", "ba", "ce", "ma", "pb", "pe", "pi", "rn", "se"],
+  "Center-West": ["df", "go", "ms", "mt"],
+  Southeast: ["es", "mg", "rj", "sp"],
+  South: ["pr", "rs", "sc"],
+};
+
+// Reverse lookup: state id -> region
+const STATE_TO_REGION: Record<string, string> = {};
+Object.entries(REGION_STATES).forEach(([region, states]) => {
+  states.forEach((s) => (STATE_TO_REGION[s] = region));
+});
+
+// Mock data per region
 const REGION_DATA: Record<string, {
   leads: string;
   conversion: string;
@@ -60,36 +76,6 @@ const REGION_DATA: Record<string, {
   },
 };
 
-// Realistic Brazil region SVG paths
-const regions = [
-  {
-    id: "North",
-    label: { x: 200, y: 100 },
-    // Amazonas/Pará/Amapá/Roraima/Rondônia/Acre/Tocantins outline
-    path: "M100,40 L130,30 L170,25 L200,30 L230,35 L260,50 L280,70 L290,90 L280,110 L270,130 L260,145 L240,150 L220,155 L200,150 L180,155 L160,150 L140,145 L120,140 L105,130 L95,110 L90,90 L85,70 L90,55 Z",
-  },
-  {
-    id: "Northeast",
-    label: { x: 320, y: 120 },
-    path: "M260,50 L280,45 L310,50 L340,65 L355,85 L360,110 L355,135 L340,155 L320,165 L300,170 L280,165 L265,155 L260,145 L270,130 L280,110 L290,90 L280,70 Z",
-  },
-  {
-    id: "Center-West",
-    label: { x: 210, y: 200 },
-    path: "M140,145 L160,150 L180,155 L200,150 L220,155 L240,150 L260,145 L265,155 L270,170 L265,190 L255,210 L240,225 L220,230 L200,228 L180,225 L165,215 L150,200 L140,180 L135,165 Z",
-  },
-  {
-    id: "Southeast",
-    label: { x: 290, y: 230 },
-    path: "M265,155 L280,165 L300,170 L310,180 L315,200 L310,215 L300,230 L285,240 L270,242 L255,238 L240,225 L255,210 L265,190 L270,170 Z",
-  },
-  {
-    id: "South",
-    label: { x: 240, y: 290 },
-    path: "M220,230 L240,225 L255,238 L270,242 L275,255 L270,275 L260,290 L245,305 L225,310 L210,305 L200,290 L195,270 L200,250 L210,238 Z",
-  },
-];
-
 const BrazilMap = ({
   selectedRegion,
   onSelect,
@@ -97,57 +83,56 @@ const BrazilMap = ({
   selectedRegion: string;
   onSelect: (r: string) => void;
 }) => {
-  const [hovered, setHovered] = useState<string | null>(null);
+  const [hoveredRegion, setHoveredRegion] = useState<string | null>(null);
+
+  // Group locations by region
+  const locationsByRegion = useMemo(() => {
+    const grouped: Record<string, typeof brazilMap.locations> = {};
+    brazilMap.locations.forEach((loc) => {
+      const region = STATE_TO_REGION[loc.id];
+      if (region) {
+        if (!grouped[region]) grouped[region] = [];
+        grouped[region].push(loc);
+      }
+    });
+    return grouped;
+  }, []);
 
   return (
-    <svg viewBox="70 15 310 310" className="h-full w-full" style={{ maxHeight: "100%" }}>
+    <svg viewBox={brazilMap.viewBox} className="h-full w-full" style={{ maxHeight: "100%" }}>
       <defs>
         <radialGradient id="ocean-glow" cx="50%" cy="50%" r="60%">
           <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.03" />
           <stop offset="100%" stopColor="transparent" stopOpacity="0" />
         </radialGradient>
       </defs>
-      <rect x="70" y="15" width="310" height="310" fill="url(#ocean-glow)" />
+      <rect x="0" y="0" width="613" height="639" fill="url(#ocean-glow)" />
 
-      {regions.map((region) => {
-        const isSelected = selectedRegion === region.id;
-        const isHovered = hovered === region.id;
+      {Object.entries(locationsByRegion).map(([region, states]) => {
+        const isSelected = selectedRegion === region;
+        const isHovered = hoveredRegion === region;
 
-        return (
-          <g key={region.id}>
-            <path
-              d={region.path}
-              fill={
-                isSelected
-                  ? "hsl(var(--primary))"
-                  : "hsl(20 30% 14%)"
-              }
-              fillOpacity={isSelected ? 0.6 : isHovered ? 0.25 : 1}
-              stroke="hsl(var(--primary))"
-              strokeWidth={isSelected ? "2" : "1"}
-              strokeOpacity={isSelected ? 0.9 : 0.3}
-              className="cursor-pointer transition-all duration-300"
-              onMouseEnter={() => setHovered(region.id)}
-              onMouseLeave={() => setHovered(null)}
-              onClick={() =>
-                onSelect(selectedRegion === region.id ? "National" : region.id)
-              }
-            />
-            <text
-              x={region.label.x}
-              y={region.label.y}
-              fill="hsl(var(--primary))"
-              fillOpacity={isSelected ? 1 : 0.5}
-              fontSize="10"
-              fontWeight={isSelected ? "700" : "500"}
-              textAnchor="middle"
-              className="pointer-events-none select-none"
-              style={{ fontFamily: "Inter, sans-serif" }}
-            >
-              {region.id}
-            </text>
-          </g>
-        );
+        return states.map((state) => (
+          <path
+            key={state.id}
+            d={state.path}
+            fill={
+              isSelected
+                ? "hsl(var(--primary))"
+                : "hsl(20 30% 14%)"
+            }
+            fillOpacity={isSelected ? 0.6 : isHovered ? 0.35 : 1}
+            stroke="hsl(var(--primary))"
+            strokeWidth={isSelected ? "1.5" : "0.6"}
+            strokeOpacity={isSelected ? 0.9 : 0.25}
+            className="cursor-pointer transition-all duration-300"
+            onMouseEnter={() => setHoveredRegion(region)}
+            onMouseLeave={() => setHoveredRegion(null)}
+            onClick={() =>
+              onSelect(selectedRegion === region ? "National" : region)
+            }
+          />
+        ));
       })}
     </svg>
   );
@@ -161,7 +146,6 @@ const GeoDistribution = () => {
     <div className="grid h-full grid-cols-1 gap-2.5 lg:grid-cols-[7fr_3fr]">
       {/* LEFT: Map */}
       <div className="rounded-xl border border-border bg-card p-4 flex flex-col min-h-0">
-        {/* Map Header */}
         <div className="flex items-center justify-between mb-2">
           <div>
             <h3 className="font-display text-sm font-semibold text-foreground flex items-center gap-1.5">
@@ -174,8 +158,6 @@ const GeoDistribution = () => {
                 : `Viewing: ${selectedRegion}`}
             </p>
           </div>
-
-          {/* Floating region badge */}
           <div className="flex items-center gap-2">
             {selectedRegion !== "National" && (
               <button
@@ -190,13 +172,8 @@ const GeoDistribution = () => {
             </span>
           </div>
         </div>
-
-        {/* Map SVG */}
         <div className="flex-1 flex items-center justify-center min-h-0">
-          <BrazilMap
-            selectedRegion={selectedRegion}
-            onSelect={setSelectedRegion}
-          />
+          <BrazilMap selectedRegion={selectedRegion} onSelect={setSelectedRegion} />
         </div>
       </div>
 
@@ -209,17 +186,10 @@ const GeoDistribution = () => {
             { label: "Conversion", value: data.conversion, icon: Target },
             { label: "Response", value: data.time, icon: Clock },
           ].map((kpi) => (
-            <div
-              key={kpi.label}
-              className="rounded-xl border border-border bg-card p-2.5 flex flex-col items-center gap-1"
-            >
+            <div key={kpi.label} className="rounded-xl border border-border bg-card p-2.5 flex flex-col items-center gap-1">
               <kpi.icon className="h-3 w-3 text-primary" />
-              <span className="text-[9px] text-muted-foreground uppercase tracking-wider">
-                {kpi.label}
-              </span>
-              <span className="text-sm font-bold text-foreground font-display">
-                {kpi.value}
-              </span>
+              <span className="text-[9px] text-muted-foreground uppercase tracking-wider">{kpi.label}</span>
+              <span className="text-sm font-bold text-foreground font-display">{kpi.value}</span>
             </div>
           ))}
         </div>
@@ -236,28 +206,18 @@ const GeoDistribution = () => {
               <ChevronRight className="h-2.5 w-2.5" />
             </button>
           </div>
-
           <div className="flex-1 flex flex-col gap-2">
             {data.topCities.map((city, idx) => (
               <div key={city.name} className="flex flex-col gap-1">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-bold text-primary/60 w-4">
-                      0{idx + 1}
-                    </span>
-                    <span className="text-xs font-medium text-foreground">
-                      {city.name}
-                    </span>
+                    <span className="text-[10px] font-bold text-primary/60 w-4">0{idx + 1}</span>
+                    <span className="text-xs font-medium text-foreground">{city.name}</span>
                   </div>
-                  <span className="text-[10px] text-muted-foreground">
-                    {city.value.toLocaleString()} leads
-                  </span>
+                  <span className="text-[10px] text-muted-foreground">{city.value.toLocaleString()} leads</span>
                 </div>
                 <div className="h-1 w-full rounded-full bg-muted/50 overflow-hidden ml-6">
-                  <div
-                    className="h-full rounded-full bg-primary transition-all duration-500"
-                    style={{ width: `${city.percent}%` }}
-                  />
+                  <div className="h-full rounded-full bg-primary transition-all duration-500" style={{ width: `${city.percent}%` }} />
                 </div>
               </div>
             ))}
@@ -269,9 +229,7 @@ const GeoDistribution = () => {
           <div className="flex items-start gap-2">
             <MapPin className="h-3 w-3 text-primary mt-0.5 shrink-0" />
             <div>
-              <p className="text-[10px] font-semibold text-primary mb-0.5">
-                Regional Insight
-              </p>
+              <p className="text-[10px] font-semibold text-primary mb-0.5">Regional Insight</p>
               <p className="text-[10px] text-muted-foreground leading-relaxed">
                 {selectedRegion === "National"
                   ? "Southeast concentrates 72% of total leads with 2.4% above-average conversion during peak hours (14h-16h)."
