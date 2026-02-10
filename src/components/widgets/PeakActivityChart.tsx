@@ -12,14 +12,14 @@ const PeakActivityChart = () => {
   const baseFill = isDark ? "hsl(20,25%,28%)" : "hsl(30,18%,78%)";
 
   return (
-    <div className="rounded-xl border border-border bg-card p-5">
-      <div className="mb-4 flex items-center justify-between">
-        <h3 className="font-display text-lg font-semibold text-foreground">Peak Activity Hours</h3>
-        <Badge className="border-primary/30 bg-primary/10 text-primary">
+    <div className="rounded-xl border border-border bg-card p-4">
+      <div className="mb-2 flex items-center justify-between">
+        <h3 className="font-display text-sm font-semibold text-foreground">Peak Activity Hours</h3>
+        <Badge className="border-primary/30 bg-primary/10 text-primary text-[10px]">
           Most Active: 14:00 – 16:00
         </Badge>
       </div>
-      <ResponsiveContainer width="100%" height={220}>
+      <ResponsiveContainer width="100%" height={180}>
         <BarChart data={peakHoursData} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
           <XAxis dataKey="hour" tick={{ fill: mutedColor, fontSize: 10 }} axisLine={false} tickLine={false} interval={3} />
           <YAxis tick={{ fill: mutedColor, fontSize: 10 }} axisLine={false} tickLine={false} />

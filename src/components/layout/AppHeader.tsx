@@ -13,10 +13,10 @@ const AppHeader = ({ title, breadcrumb = [] }: AppHeaderProps) => {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <header className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-card/80 px-6 py-5 backdrop-blur-sm">
+    <header className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-card/80 px-6 py-3 backdrop-blur-sm">
       <div>
         {breadcrumb.length > 0 && (
-          <div className="mb-1 flex items-center gap-1.5 text-xs text-muted-foreground">
+          <div className="mb-0.5 flex items-center gap-1.5 text-[11px] text-muted-foreground">
             {breadcrumb.map((item, i) => (
               <span key={i} className="flex items-center gap-1.5">
                 {i > 0 && <span>/</span>}
@@ -25,7 +25,7 @@ const AppHeader = ({ title, breadcrumb = [] }: AppHeaderProps) => {
             ))}
           </div>
         )}
-        <h1 className="font-display text-2xl font-semibold text-foreground">{title}</h1>
+        <h1 className="font-display text-lg font-semibold text-foreground">{title}</h1>
       </div>
 
       <div className="flex items-center gap-3">
