@@ -21,12 +21,12 @@ const AppHeader = ({
   return <header className="flex items-center justify-between border-b border-border bg-card/50 px-6 backdrop-blur-sm py-[6px]">
       <div>
         {breadcrumb.length > 0 && <div className="mb-1 flex items-center gap-1.5 text-xs text-muted-foreground">
-            {breadcrumb.map((item, i) => <span key={i} className="flex items-center gap-1.5">
+            {breadcrumb.map((item, i) => <span key={i} className="flex items-center gap-1.5 py-[8px]">
                 {i > 0 && <span>/</span>}
                 {item}
               </span>)}
           </div>}
-        <h2 className="font-display text-2xl font-semibold text-foreground">{title}</h2>
+        <h1 className="font-display text-2xl font-semibold text-foreground">{title}</h1>
       </div>
 
       <div className="flex items-center gap-3">
