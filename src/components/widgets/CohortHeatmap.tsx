@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const days = ["Day 0", "Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7"];
 
@@ -26,15 +26,22 @@ const getCellText = (value: number | null, isDark: boolean) => {
     if (intensity > 0.35) return "hsl(43, 55%, 70%)";
     return "hsl(35, 15%, 50%)";
   }
-  // Light mode: stronger contrast
   if (intensity > 0.65) return "hsl(24, 40%, 10%)";
   if (intensity > 0.35) return "hsl(24, 35%, 20%)";
   return "hsl(24, 20%, 35%)";
 };
 
 const CohortHeatmap = () => {
-  const isDark = document.documentElement.classList.contains("dark");
+  const [isDark, setIsDark] = useState(document.documentElement.classList.contains("dark"));
   const [tooltip, setTooltip] = useState<{ value: number; x: number; y: number } | null>(null);
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsDark(document.documentElement.classList.contains("dark"));
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="rounded-xl border border-border bg-card p-5">
@@ -56,7 +63,7 @@ const CohortHeatmap = () => {
       </div>
 
       {/* Table */}
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto overflow-y-hidden">
         <table className="w-full border-collapse">
           <thead>
             <tr>
@@ -84,7 +91,7 @@ const CohortHeatmap = () => {
                   <td key={i} className="p-[2px]">
                     {val !== null ? (
                       <div
-                        className="flex h-9 w-full min-w-[52px] cursor-default items-center justify-center rounded-md text-xs font-semibold transition-all hover:scale-105 hover:brightness-110"
+                        className="flex h-9 w-full min-w-[52px] cursor-default items-center justify-center rounded-md text-xs font-semibold transition-colors hover:brightness-110"
                         style={{
                           backgroundColor: getCellBg(val),
                           color: getCellText(val, isDark),
