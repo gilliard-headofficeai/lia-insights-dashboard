@@ -26,7 +26,7 @@ const AppHeader = ({
                 {item}
               </span>)}
           </div>}
-        <h1 className="font-display text-2xl font-semibold text-foreground">{title}</h1>
+        <h2 className="font-display text-2xl font-semibold text-foreground">{title}</h2>
       </div>
 
       <div className="flex items-center gap-3">
