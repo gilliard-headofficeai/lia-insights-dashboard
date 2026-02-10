@@ -3,9 +3,9 @@ import { AlertTriangle } from "lucide-react";
 
 const ConversionBarriers = () => {
   return (
-    <div className="rounded-xl border border-border bg-card p-5">
-      <h3 className="mb-4 font-display text-lg font-semibold text-foreground">Conversion Barriers & Funnel</h3>
-      <div className="space-y-4">
+    <div className="rounded-xl border border-border bg-card p-4">
+      <h3 className="mb-3 font-display text-sm font-semibold text-foreground">Conversion Barriers & Funnel</h3>
+      <div className="space-y-3">
         {barrierData.map((item) => (
           <div key={item.label}>
             <div className="mb-1.5 flex items-center justify-between text-sm">
@@ -23,7 +23,7 @@ const ConversionBarriers = () => {
       </div>
 
       {/* Insight box */}
-      <div className="mt-5 flex items-start gap-2 rounded-lg border border-primary/30 bg-primary/5 p-3">
+      <div className="mt-3 flex items-start gap-2 rounded-lg border border-primary/30 bg-primary/5 p-2.5">
         <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
         <p className="text-xs text-foreground/80">
           <span className="font-semibold text-primary">Insight:</span> Underage candidates constitute the largest drop-off at 35%. Consider implementing early age verification in the flow.

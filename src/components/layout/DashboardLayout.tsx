@@ -13,7 +13,7 @@ const DashboardLayout = ({ children, title, breadcrumb }: DashboardLayoutProps) 
       <AppSidebar />
       <div className="ml-60">
         <AppHeader title={title} breadcrumb={breadcrumb} />
-        <main className="p-6">{children}</main>
+        <main className="p-4">{children}</main>
       </div>
     </div>
   );

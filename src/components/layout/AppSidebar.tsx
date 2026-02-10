@@ -12,7 +12,7 @@ const AppSidebar = () => {
   return (
     <aside className="fixed left-0 top-0 z-40 flex h-screen w-60 flex-col border-r border-border bg-sidebar">
       {/* Logo */}
-      <div className="flex items-center gap-3 border-b border-border px-5 py-[21px]">
+      <div className="flex items-center gap-3 border-b border-border px-5 py-3">
         <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/20">
           <Bot className="h-5 w-5 text-primary" />
         </div>
