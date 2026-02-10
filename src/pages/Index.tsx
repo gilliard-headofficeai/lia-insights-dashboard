@@ -1,13 +1,19 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import DashboardLayout from "@/components/layout/DashboardLayout";
+import KPICard from "@/components/widgets/KPICard";
+import { kpiData } from "@/data/mockData";
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <DashboardLayout title="Overview" breadcrumb={["LIA Analytics", "Overview"]}>
+      <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {kpiData.map((kpi) => (
+          <KPICard key={kpi.title} {...kpi} />
+        ))}
       </div>
-    </div>
+      <div className="flex items-center justify-center rounded-xl border border-border bg-card p-20">
+        <p className="text-muted-foreground">Overview dashboard — mais widgets em breve.</p>
+      </div>
+    </DashboardLayout>
   );
 };
 
