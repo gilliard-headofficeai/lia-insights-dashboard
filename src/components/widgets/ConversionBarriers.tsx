@@ -6,11 +6,11 @@ const ConversionBarriers = () => {
 
   return (
     <div className="flex h-full flex-col rounded-xl border border-border bg-card p-3.5">
-      <h3 className="mb-2 font-display text-sm font-semibold text-foreground">Conversion Barriers & Funnel</h3>
+      <h3 className="mb-2 font-display text-base font-semibold text-foreground">Conversion Barriers & Funnel</h3>
       <div className="flex-1 space-y-2.5">
         {barrierData.map((item) => (
           <div key={item.label}>
-            <div className="mb-0.5 flex items-center justify-between text-xs">
+            <div className="mb-0.5 flex items-center justify-between text-sm">
               <span className="text-foreground">{item.label}</span>
               <span className="font-semibold text-foreground">{item.value}%</span>
             </div>
