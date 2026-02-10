@@ -1,6 +1,7 @@
 import { useLayoutMode } from "@/contexts/LayoutContext";
-import { Settings2, Download, ChevronDown } from "lucide-react";
+import { Settings2, Download, ChevronDown, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTheme } from "@/hooks/use-theme";
 
 interface AppHeaderProps {
   title: string;
@@ -9,6 +10,7 @@ interface AppHeaderProps {
 
 const AppHeader = ({ title, breadcrumb = [] }: AppHeaderProps) => {
   const { isEditMode, setIsEditMode } = useLayoutMode();
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <header className="flex items-center justify-between border-b border-border bg-card/50 px-6 py-4 backdrop-blur-sm">
@@ -27,6 +29,16 @@ const AppHeader = ({ title, breadcrumb = [] }: AppHeaderProps) => {
       </div>
 
       <div className="flex items-center gap-3">
+        {/* Theme toggle */}
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={toggleTheme}
+          className="border-border text-muted-foreground"
+        >
+          {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+        </Button>
+
         {/* Date filter */}
         <Button variant="outline" size="sm" className="gap-2 border-border text-muted-foreground">
           Last 30 Days

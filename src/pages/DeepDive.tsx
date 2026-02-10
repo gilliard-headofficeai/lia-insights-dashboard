@@ -10,15 +10,13 @@ import { kpiData } from "@/data/mockData";
 const DeepDive = () => {
   return (
     <DashboardLayout title="Deep Dive Analysis" breadcrumb={["LIA Analytics", "Deep Dive"]}>
-      {/* KPI row - always at top */}
-      <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {kpiData.map((kpi) => (
-          <KPICard key={kpi.title} {...kpi} />
-        ))}
-      </div>
-
-      {/* Draggable widgets */}
       <DraggableGrid>
+        {/* KPI row */}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {kpiData.map((kpi) => (
+            <KPICard key={kpi.title} {...kpi} />
+          ))}
+        </div>
         <CohortHeatmap />
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           <ConversionBarriers />
