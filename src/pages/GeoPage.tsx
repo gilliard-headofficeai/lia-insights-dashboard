@@ -6,11 +6,11 @@ import GeoMapPanel from "@/components/widgets/geo/GeoMapPanel";
 import { REGION_DATA } from "@/components/widgets/geo/geoData";
 
 const GeoPage = () => {
-  const [selectedRegion, setSelectedRegion] = useState("National");
-  const data = REGION_DATA[selectedRegion] || REGION_DATA.National;
+  const [selectedRegion, setSelectedRegion] = useState("Nacional");
+  const data = REGION_DATA[selectedRegion] || REGION_DATA.Nacional;
 
   return (
-    <DashboardLayout title="Geo Distribution" breadcrumb={["LIA Analytics", "Geo Distribution"]}>
+    <DashboardLayout title="Distribuição Geográfica" breadcrumb={["LIA Analytics", "Distribuição Geográfica"]}>
       <DraggableGrid storageKey="geo-main" className="grid h-full grid-cols-1 gap-2.5 lg:grid-cols-[7fr_3fr]">
           <GeoMapPanel selectedRegion={selectedRegion} onSelectRegion={setSelectedRegion} />
 
@@ -19,8 +19,8 @@ const GeoPage = () => {
             <DraggableGrid storageKey="geo-kpis" className="grid grid-cols-3 gap-1.5">
               {[
                 { label: "Total Leads", value: data.leads, Icon: Users },
-                { label: "Conversion", value: data.conversion, Icon: Target },
-                { label: "Response", value: data.time, Icon: Clock },
+                { label: "Conversão", value: data.conversion, Icon: Target },
+                { label: "Resposta", value: data.time, Icon: Clock },
               ].map((kpi) => (
                 <div key={kpi.label} className="rounded-xl border border-border bg-card p-2.5 flex flex-col items-center gap-1">
                   <kpi.Icon className="h-3 w-3 text-primary" />
@@ -35,10 +35,10 @@ const GeoPage = () => {
               <div className="flex items-center justify-between mb-2.5">
                 <h2 className="text-sm font-semibold text-foreground flex items-center gap-1.5">
                   <TrendingUp className="h-3.5 w-3.5 text-primary" />
-                  Top Performing Cities
+                  Cidades com Melhor Desempenho
                 </h2>
                 <button className="text-[10px] text-primary flex items-center gap-0.5 hover:underline">
-                  View Report
+                  Ver Relatório
                   <ChevronRight className="h-2.5 w-2.5" />
                 </button>
               </div>
@@ -65,11 +65,11 @@ const GeoPage = () => {
               <div className="flex items-start gap-2">
                 <MapPin className="h-3 w-3 text-primary mt-0.5 shrink-0" />
                 <div>
-                  <h2 className="text-sm font-semibold text-primary mb-0.5">Regional Insight</h2>
+                  <h2 className="text-sm font-semibold text-primary mb-0.5">Insight Regional</h2>
                   <p className="text-[10px] text-muted-foreground leading-relaxed">
-                    {selectedRegion === "National"
-                      ? "Southeast concentrates 72% of total leads with 2.4% above-average conversion during peak hours (14h-16h)."
-                      : `${selectedRegion} region shows distinct engagement patterns. Click other regions to compare performance.`}
+                    {selectedRegion === "Nacional"
+                      ? "O Sudeste concentra 72% do total de leads com conversão 2,4% acima da média nos horários de pico (14h-16h)."
+                      : `A região ${selectedRegion} apresenta padrões de engajamento distintos. Clique em outras regiões para comparar o desempenho.`}
                   </p>
                 </div>
               </div>

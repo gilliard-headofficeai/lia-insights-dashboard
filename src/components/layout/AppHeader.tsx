@@ -33,12 +33,12 @@ const AppHeader = ({ title, breadcrumb = [] }: AppHeaderProps) => {
           {theme === "dark" ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
         </Button>
         <Button variant="outline" size="sm" className="h-8 gap-1.5 border-border text-xs text-muted-foreground">
-          Last 30 Days
+          Últimos 30 Dias
           <ChevronDown className="h-3 w-3" />
         </Button>
         <Button size="sm" className="h-8 gap-1.5 bg-primary text-xs text-primary-foreground hover:bg-primary/90">
           <Download className="h-3 w-3" />
-          Export Report
+          Exportar Relatório
         </Button>
         <Button
           variant={isEditMode ? "default" : "outline"}
@@ -47,7 +47,7 @@ const AppHeader = ({ title, breadcrumb = [] }: AppHeaderProps) => {
           className={`h-8 gap-1.5 text-xs ${isEditMode ? "bg-primary text-primary-foreground" : "border-border text-muted-foreground"}`}
         >
           <Settings2 className="h-3 w-3" />
-          {isEditMode ? "Save Layout" : "Edit Layout"}
+          {isEditMode ? "Salvar Layout" : "Editar Layout"}
         </Button>
       </div>
     </header>

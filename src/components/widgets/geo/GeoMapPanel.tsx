@@ -29,25 +29,25 @@ const GeoMapPanel = ({ selectedRegion, onSelectRegion }: GeoMapPanelProps) => {
         <div>
           <h3 className="font-display text-base font-semibold text-foreground flex items-center gap-1.5">
             <MapPin className="h-3.5 w-3.5 text-primary" />
-            Brazil — Geographic Performance
+            Brasil — Desempenho Geográfico
           </h3>
           <p className="text-xs text-muted-foreground">
-            {selectedRegion === "National"
-              ? "Click a region to filter"
-              : `Viewing: ${selectedRegion}`}
+            {selectedRegion === "Nacional"
+              ? "Clique em uma região para filtrar"
+              : `Visualizando: ${selectedRegion}`}
           </p>
         </div>
         <div className="flex items-center gap-2">
-          {selectedRegion !== "National" && (
+          {selectedRegion !== "Nacional" && (
             <button
-              onClick={() => onSelectRegion("National")}
+              onClick={() => onSelectRegion("Nacional")}
               className="text-[10px] px-2.5 py-1 rounded-md border border-primary/30 text-primary hover:bg-primary/10 transition-colors"
             >
-              Reset View
+              Resetar Visão
             </button>
           )}
           <span className="text-xs font-semibold text-primary bg-primary/10 px-2.5 py-1 rounded-md">
-            {selectedRegion === "National" ? "National View" : selectedRegion}
+            {selectedRegion === "National" ? "Visão Nacional" : selectedRegion}
           </span>
         </div>
       </div>
@@ -75,7 +75,7 @@ const GeoMapPanel = ({ selectedRegion, onSelectRegion }: GeoMapPanelProps) => {
                 className="cursor-pointer transition-all duration-300"
                 onMouseEnter={() => setHoveredRegion(region)}
                 onMouseLeave={() => setHoveredRegion(null)}
-                onClick={() => onSelectRegion(selectedRegion === region ? "National" : region)}
+                onClick={() => onSelectRegion(selectedRegion === region ? "Nacional" : region)}
               />
             ));
           })}

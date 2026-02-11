@@ -14,9 +14,9 @@ const PeakActivityChart = () => {
   return (
     <div className="flex h-full flex-col rounded-xl border border-border bg-card p-3.5">
       <div className="mb-1.5 flex items-center justify-between">
-        <h3 className="font-display text-base font-semibold text-foreground">Peak Activity Hours</h3>
+        <h3 className="font-display text-base font-semibold text-foreground">Horários de Pico</h3>
         <Badge className="border-primary/30 bg-primary/10 text-primary text-[10px]">
-          Most Active: 14:00 – 16:00
+          Mais Ativo: 14:00 – 16:00
         </Badge>
       </div>
       <div className="flex-1 min-h-0">

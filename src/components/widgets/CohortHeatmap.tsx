@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 
-const days = ["Day 0", "Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7"];
+const days = ["Dia 0", "Dia 1", "Dia 2", "Dia 3", "Dia 4", "Dia 5", "Dia 6", "Dia 7"];
 
 const cohortRows = [
-  { date: "Oct 23 - Oct 29", users: 1240, values: [12.4, 8.2, 6.5, 5.1, 4.8, 3.2, 2.1, 1.5] },
-  { date: "Oct 30 - Nov 05", users: 1450, values: [14.1, 9.5, 7.2, 6.0, 4.9, 3.8, 2.5, 1.2] },
-  { date: "Nov 06 - Nov 12", users: 1320, values: [13.2, 8.8, 6.9, 5.5, 5.2, 3.5, 2.4, null] },
-  { date: "Nov 13 - Nov 19", users: 1580, values: [15.5, 10.1, 7.8, 6.2, 5.1, null, null, null] },
-  { date: "Nov 20 - Nov 26", users: 1610, values: [13.8, 8.5, 6.1, null, null, null, null, null] },
+  { date: "23 Out - 29 Out", users: 1240, values: [12.4, 8.2, 6.5, 5.1, 4.8, 3.2, 2.1, 1.5] },
+  { date: "30 Out - 05 Nov", users: 1450, values: [14.1, 9.5, 7.2, 6.0, 4.9, 3.8, 2.5, 1.2] },
+  { date: "06 Nov - 12 Nov", users: 1320, values: [13.2, 8.8, 6.9, 5.5, 5.2, 3.5, 2.4, null] },
+  { date: "13 Nov - 19 Nov", users: 1580, values: [15.5, 10.1, 7.8, 6.2, 5.1, null, null, null] },
+  { date: "20 Nov - 26 Nov", users: 1610, values: [13.8, 8.5, 6.1, null, null, null, null, null] },
 ];
 
 const MAX_VALUE = 15.5;
@@ -47,19 +47,19 @@ const CohortHeatmap = () => {
     <div className="rounded-xl border border-border bg-card p-4">
       {/* Header */}
       <div className="mb-1">
-        <h3 className="font-display text-sm font-semibold text-foreground">Messages by Client Cohort</h3>
-        <p className="text-[10px] text-muted-foreground">Weekly average message volume per user from start date.</p>
+        <h3 className="font-display text-sm font-semibold text-foreground">Mensagens por Coorte de Clientes</h3>
+        <p className="text-[10px] text-muted-foreground">Volume médio semanal de mensagens por usuário desde a data de início.</p>
       </div>
 
       {/* Scale legend */}
       <div className="mb-4 flex items-center gap-2 text-xs text-muted-foreground">
-        <span>Low</span>
+        <span>Baixo</span>
         <div className="flex h-3 w-28 overflow-hidden rounded-sm">
           {[0.1, 0.25, 0.4, 0.55, 0.7, 0.85, 1].map((o, i) => (
             <div key={i} className="flex-1" style={{ backgroundColor: `rgba(212, 175, 55, ${o})` }} />
           ))}
         </div>
-        <span>High</span>
+        <span>Alto</span>
       </div>
 
       {/* Table */}
@@ -68,10 +68,10 @@ const CohortHeatmap = () => {
           <thead>
             <tr>
               <th className="pb-2 pr-4 text-left text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-                Start Date
+                Data Início
               </th>
               <th className="pb-2 pr-2 text-right text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-                Users
+                Usuários
               </th>
               {days.map((d) => (
                 <th key={d} className="pb-2 text-center text-[11px] font-semibold uppercase tracking-wider text-primary/70">
@@ -123,7 +123,7 @@ const CohortHeatmap = () => {
           className="pointer-events-none fixed z-50 rounded-md bg-popover px-2.5 py-1 text-xs font-semibold text-foreground shadow-lg border border-border"
           style={{ left: tooltip.x, top: tooltip.y, transform: "translate(-50%, -100%)" }}
         >
-          {tooltip.value} msgs/user
+          {tooltip.value} msgs/usuário
         </div>
       )}
     </div>
