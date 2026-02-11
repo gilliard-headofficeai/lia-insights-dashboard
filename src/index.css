@@ -117,4 +117,28 @@
   h1, h2, h3, h4, h5, h6, .font-display {
     font-family: 'Playfair Display', serif;
   }
+
+  /* Custom scrollbar — thin & themed */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--sidebar-accent)) transparent;
+  }
+
+  *::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--sidebar-accent));
+    border-radius: 9999px;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--sidebar-primary));
+  }
 }
