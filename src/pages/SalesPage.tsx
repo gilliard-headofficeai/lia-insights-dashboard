@@ -1,4 +1,5 @@
 import DashboardLayout from "@/components/layout/DashboardLayout";
+import DraggableGrid from "@/components/widgets/DraggableGrid";
 import { DollarSign, Award, TrendingUp } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import { SALES_KPIS, SALES_BY_KIT_MOCK, RECENT_TRANSACTIONS } from "@/data/salesData";
@@ -35,9 +36,9 @@ const SalesPage = () => {
 
   return (
     <DashboardLayout title="Performance de Vendas" breadcrumb={["LIA Analytics", "Vendas"]}>
-      <div className="flex flex-col gap-4">
+      <DraggableGrid storageKey="sales">
         {/* KPI Cards */}
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+        <DraggableGrid storageKey="sales-kpis" className="grid grid-cols-1 gap-3 sm:grid-cols-3">
           {kpis.map((k) => (
             <div key={k.label} className="rounded-xl border border-border bg-card p-6 shadow-sm">
               <div className="mb-3 flex items-center justify-between">
@@ -49,7 +50,7 @@ const SalesPage = () => {
               <p className="font-display text-2xl font-bold text-foreground">{k.value}</p>
             </div>
           ))}
-        </div>
+        </DraggableGrid>
 
         {/* Revenue Chart */}
         <div className="rounded-xl border border-border bg-card p-6 shadow-sm">
@@ -103,7 +104,7 @@ const SalesPage = () => {
             </TableBody>
           </Table>
         </div>
-      </div>
+      </DraggableGrid>
     </DashboardLayout>
   );
 };

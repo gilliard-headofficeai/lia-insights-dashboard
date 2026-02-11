@@ -1,4 +1,5 @@
 import DashboardLayout from "@/components/layout/DashboardLayout";
+import DraggableGrid from "@/components/widgets/DraggableGrid";
 import { Calendar, CheckCircle, Percent } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import { WEEKLY_APPOINTMENTS_MOCK } from "@/data/salesData";
@@ -30,9 +31,9 @@ const AppointmentsPage = () => {
 
   return (
     <DashboardLayout title="Agendamentos" breadcrumb={["LIA Analytics", "Agendamentos"]}>
-      <div className="flex flex-col gap-4">
+      <DraggableGrid storageKey="appointments">
         {/* KPI Cards */}
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+        <DraggableGrid storageKey="appointments-kpis" className="grid grid-cols-1 gap-3 sm:grid-cols-3">
           {kpis.map((k) => (
             <div key={k.label} className="rounded-xl border border-border bg-card p-6 shadow-sm">
               <div className="mb-3 flex items-center justify-between">
@@ -44,7 +45,7 @@ const AppointmentsPage = () => {
               <p className="font-display text-2xl font-bold text-foreground">{k.value}</p>
             </div>
           ))}
-        </div>
+        </DraggableGrid>
 
         {/* Weekly Chart */}
         <div className="flex-1 rounded-xl border border-border bg-card p-6 shadow-sm">
@@ -66,7 +67,7 @@ const AppointmentsPage = () => {
             </ResponsiveContainer>
           </div>
         </div>
-      </div>
+      </DraggableGrid>
     </DashboardLayout>
   );
 };
