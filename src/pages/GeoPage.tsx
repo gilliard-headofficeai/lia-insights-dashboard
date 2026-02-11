@@ -11,13 +11,12 @@ const GeoPage = () => {
 
   return (
     <DashboardLayout title="Geo Distribution" breadcrumb={["LIA Analytics", "Geo Distribution"]}>
-      <div className="flex-1 min-h-0">
-        <div className="grid h-full grid-cols-1 gap-2.5 lg:grid-cols-[7fr_3fr]">
+      <DraggableGrid storageKey="geo-main" className="grid h-full grid-cols-1 gap-2.5 lg:grid-cols-[7fr_3fr]">
           <GeoMapPanel selectedRegion={selectedRegion} onSelectRegion={setSelectedRegion} />
 
           <DraggableGrid storageKey="geo-sidebar">
-            {/* Mini KPIs */}
-            <div className="grid grid-cols-3 gap-1.5">
+            {/* Mini KPIs — individually draggable */}
+            <DraggableGrid storageKey="geo-kpis" className="grid grid-cols-3 gap-1.5">
               {[
                 { label: "Total Leads", value: data.leads, Icon: Users },
                 { label: "Conversion", value: data.conversion, Icon: Target },
@@ -29,7 +28,7 @@ const GeoPage = () => {
                   <span className="font-display text-base font-bold text-foreground">{kpi.value}</span>
                 </div>
               ))}
-            </div>
+            </DraggableGrid>
 
             {/* Top Performing Cities */}
             <div className="rounded-xl border border-border bg-card p-3 flex flex-col flex-1 min-h-0 overflow-hidden">
@@ -76,8 +75,7 @@ const GeoPage = () => {
               </div>
             </div>
           </DraggableGrid>
-        </div>
-      </div>
+      </DraggableGrid>
     </DashboardLayout>
   );
 };
