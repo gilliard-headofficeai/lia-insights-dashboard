@@ -55,7 +55,7 @@ const Index = () => {
 
   return (
     <DashboardLayout title="Visão Geral" breadcrumb={["LIA Analytics", "Visão Geral"]}>
-      <div className="flex flex-1 flex-col gap-3 overflow-auto">
+      <div className="flex flex-col gap-3">
         {/* Lead KPIs */}
         <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
           {kpiData.map((kpi) => (
