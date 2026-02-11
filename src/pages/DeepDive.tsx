@@ -3,6 +3,7 @@ import KPICard from "@/components/widgets/KPICard";
 import CohortHeatmap from "@/components/widgets/CohortHeatmap";
 import ConversionBarriers from "@/components/widgets/ConversionBarriers";
 import PeakActivityChart from "@/components/widgets/PeakActivityChart";
+import FunnelByKit from "@/components/widgets/FunnelByKit";
 import DraggableGrid from "@/components/widgets/DraggableGrid";
 import { kpiData } from "@/data/mockData";
 
@@ -22,6 +23,7 @@ const DeepDive = () => {
           <PeakActivityChart />
           <ConversionBarriers />
         </DraggableGrid>
+        <FunnelByKit />
       </DraggableGrid>
     </DashboardLayout>
   );

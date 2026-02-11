@@ -7,6 +7,8 @@ import { LayoutProvider } from "@/contexts/LayoutContext";
 import Index from "./pages/Index";
 import DeepDive from "./pages/DeepDive";
 import GeoPage from "./pages/GeoPage";
+import SalesPage from "./pages/SalesPage";
+import AppointmentsPage from "./pages/AppointmentsPage";
 import SettingsPage from "./pages/SettingsPage";
 import NotFound from "./pages/NotFound";
 
@@ -23,6 +25,8 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/deep-dive" element={<DeepDive />} />
             <Route path="/geo" element={<GeoPage />} />
+            <Route path="/sales" element={<SalesPage />} />
+            <Route path="/appointments" element={<AppointmentsPage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
