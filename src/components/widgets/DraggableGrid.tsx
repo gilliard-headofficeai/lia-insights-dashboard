@@ -5,18 +5,26 @@ import { GripVertical } from "lucide-react";
 interface DraggableGridProps {
   children: React.ReactNode[];
   storageKey?: string;
+  /** Render children in a custom layout wrapper instead of default flex-col */
+  className?: string;
 }
 
 const STORAGE_PREFIX = "lia-layout-";
 
-const DraggableGrid = ({ children, storageKey = "deep-dive" }: DraggableGridProps) => {
+// Global drag context to scope drag events
+let activeDragGroup: string | null = null;
+
+const DraggableGrid = ({ children, storageKey = "deep-dive", className }: DraggableGridProps) => {
   const { isEditMode } = useLayoutMode();
   const fullKey = STORAGE_PREFIX + storageKey;
 
   const [order, setOrder] = useState<number[]>(() => {
     try {
       const saved = localStorage.getItem(fullKey);
-      if (saved) return JSON.parse(saved);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length === children.length) return parsed;
+      }
     } catch {}
     return children.map((_, i) => i);
   });
@@ -38,16 +46,26 @@ const DraggableGrid = ({ children, storageKey = "deep-dive" }: DraggableGridProp
     }
   }, [isEditMode]);
 
-  const handleDragStart = useCallback((idx: number) => {
+  const handleDragStart = useCallback((e: React.DragEvent, idx: number) => {
+    e.stopPropagation();
+    activeDragGroup = fullKey;
     setDragIdx(idx);
-  }, []);
+    e.dataTransfer.effectAllowed = "move";
+    // Required for Firefox
+    e.dataTransfer.setData("text/plain", `${fullKey}:${idx}`);
+  }, [fullKey]);
 
   const handleDragOver = useCallback((e: React.DragEvent, idx: number) => {
+    if (activeDragGroup !== fullKey) return;
     e.preventDefault();
+    e.stopPropagation();
     setOverIdx(idx);
-  }, []);
+  }, [fullKey]);
 
-  const handleDrop = useCallback((targetIdx: number) => {
+  const handleDrop = useCallback((e: React.DragEvent, targetIdx: number) => {
+    if (activeDragGroup !== fullKey) return;
+    e.preventDefault();
+    e.stopPropagation();
     if (dragIdx === null || dragIdx === targetIdx) return;
     setOrder((prev) => {
       const next = [...prev];
@@ -57,25 +75,29 @@ const DraggableGrid = ({ children, storageKey = "deep-dive" }: DraggableGridProp
     });
     setDragIdx(null);
     setOverIdx(null);
-  }, [dragIdx]);
+    activeDragGroup = null;
+  }, [dragIdx, fullKey]);
 
   const handleDragEnd = useCallback(() => {
     setDragIdx(null);
     setOverIdx(null);
+    activeDragGroup = null;
   }, []);
 
+  const defaultClass = "flex flex-1 flex-col gap-2 pb-0.5";
+
   return (
-    <div className="flex flex-1 flex-col gap-2 pb-0.5">
+    <div className={className || defaultClass}>
       {order.map((childIdx, posIdx) => (
         <div
-          key={childIdx}
+          key={`${storageKey}-${childIdx}`}
           draggable={isEditMode}
-          onDragStart={() => handleDragStart(posIdx)}
+          onDragStart={(e) => handleDragStart(e, posIdx)}
           onDragOver={(e) => handleDragOver(e, posIdx)}
-          onDrop={() => handleDrop(posIdx)}
+          onDrop={(e) => handleDrop(e, posIdx)}
           onDragEnd={handleDragEnd}
           className={`relative transition-all ${
-            posIdx === order.length - 1 ? "flex-1 flex flex-col" : ""
+            posIdx === order.length - 1 && !className ? "flex-1 flex flex-col" : ""
           } ${
             isEditMode
               ? "cursor-grab rounded-xl border-2 border-dashed border-primary/40 p-1 hover:border-primary/70"
@@ -87,7 +109,7 @@ const DraggableGrid = ({ children, storageKey = "deep-dive" }: DraggableGridProp
           {isEditMode && (
             <div className="absolute -top-3 left-4 z-10 flex items-center gap-1 rounded-md bg-primary/20 px-2 py-0.5 text-xs text-primary">
               <GripVertical className="h-3 w-3" />
-              Drag to reorder
+              Drag
             </div>
           )}
           {children[childIdx]}
