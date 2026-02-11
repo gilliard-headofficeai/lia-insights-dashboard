@@ -97,7 +97,7 @@ const DraggableGrid = ({ children, storageKey = "deep-dive", className }: Dragga
           onDrop={(e) => handleDrop(e, posIdx)}
           onDragEnd={handleDragEnd}
           className={`relative transition-all ${
-            posIdx === order.length - 1 && !className ? "flex-1 flex flex-col" : ""
+            className ? "h-full min-h-0 flex flex-col" : posIdx === order.length - 1 ? "flex-1 flex flex-col" : ""
           } ${
             isEditMode
               ? "cursor-grab rounded-xl border-2 border-dashed border-primary/40 p-1 hover:border-primary/70"
