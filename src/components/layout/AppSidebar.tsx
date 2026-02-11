@@ -7,7 +7,7 @@ const navItems = [
   { to: "/sales", label: "Vendas", icon: ShoppingBag },
   { to: "/appointments", label: "Agendamentos", icon: CalendarCheck },
   { to: "/geo", label: "Distribuição Geo", icon: Map },
-  { to: "/settings", label: "Configurações", icon: Settings },
+  // { to: "/settings", label: "Configurações", icon: Settings },
 ];
 
 const AppSidebar = () => {
