@@ -1,9 +1,11 @@
 import { NavLink } from "@/components/NavLink";
-import { Bot, BarChart3, Layers, Map, Settings, LogOut } from "lucide-react";
+import { Bot, BarChart3, Layers, Map, Settings, LogOut, ShoppingBag, CalendarCheck } from "lucide-react";
 
 const navItems = [
   { to: "/", label: "Visão Geral", icon: BarChart3 },
   { to: "/deep-dive", label: "Análise Detalhada", icon: Layers },
+  { to: "/sales", label: "Vendas", icon: ShoppingBag },
+  { to: "/appointments", label: "Agendamentos", icon: CalendarCheck },
   { to: "/geo", label: "Distribuição Geo", icon: Map },
   { to: "/settings", label: "Configurações", icon: Settings },
 ];
@@ -26,7 +28,7 @@ const AppSidebar = () => {
             key={item.to}
             to={item.to}
             end={item.to === "/"}
-            className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-sidebar-accent hover:text-foreground"
+            className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-sidebar-primary hover:text-white"
             activeClassName="bg-sidebar-accent text-primary font-medium"
           >
             <item.icon className="h-4 w-4" />
