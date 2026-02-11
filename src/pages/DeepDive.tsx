@@ -8,7 +8,7 @@ import { kpiData } from "@/data/mockData";
 
 const DeepDive = () => {
   return (
-    <DashboardLayout title="Deep Dive Analysis" breadcrumb={["LIA Analytics", "Deep Dive"]}>
+    <DashboardLayout title="Análise Detalhada" breadcrumb={["LIA Analytics", "Análise Detalhada"]}>
       <DraggableGrid storageKey="deep-dive">
         {/* KPI row — each card individually draggable */}
         <DraggableGrid storageKey="deep-dive-kpis" className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">

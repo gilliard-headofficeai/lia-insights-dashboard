@@ -2,10 +2,10 @@ import { NavLink } from "@/components/NavLink";
 import { Bot, BarChart3, Layers, Map, Settings, LogOut } from "lucide-react";
 
 const navItems = [
-  { to: "/", label: "Overview", icon: BarChart3 },
-  { to: "/deep-dive", label: "Deep Dive", icon: Layers },
-  { to: "/geo", label: "Geo Distribution", icon: Map },
-  { to: "/settings", label: "Settings", icon: Settings },
+  { to: "/", label: "Visão Geral", icon: BarChart3 },
+  { to: "/deep-dive", label: "Análise Detalhada", icon: Layers },
+  { to: "/geo", label: "Distribuição Geo", icon: Map },
+  { to: "/settings", label: "Configurações", icon: Settings },
 ];
 
 const AppSidebar = () => {

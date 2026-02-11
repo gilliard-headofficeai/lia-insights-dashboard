@@ -30,7 +30,7 @@ const KPICard = ({
       <p className="font-display text-3xl font-bold text-foreground">{value}</p>
       <p className={`mt-1 text-sm font-medium ${positive ? "text-success" : "text-danger"}`}>
         {positive ? "↑" : "↓"} {Math.abs(change)}%
-        <span className="ml-1 text-muted-foreground font-normal">vs last period</span>
+        <span className="ml-1 text-muted-foreground font-normal">vs período anterior</span>
       </p>
     </div>;
 };
