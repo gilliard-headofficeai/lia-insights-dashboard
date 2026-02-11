@@ -197,10 +197,10 @@ const GeoDistribution = () => {
         {/* Top Performing Cities */}
         <div className="rounded-xl border border-border bg-card p-3 flex flex-col flex-1 min-h-0 overflow-hidden">
           <div className="flex items-center justify-between mb-2.5">
-            <h4 className="text-xs font-semibold text-foreground flex items-center gap-1.5">
-              <TrendingUp className="h-3 w-3 text-primary" />
+            <h2 className="text-sm font-semibold text-foreground flex items-center gap-1.5">
+              <TrendingUp className="h-3.5 w-3.5 text-primary" />
               Top Performing Cities
-            </h4>
+            </h2>
             <button className="text-[10px] text-primary flex items-center gap-0.5 hover:underline">
               View Report
               <ChevronRight className="h-2.5 w-2.5" />
@@ -211,10 +211,10 @@ const GeoDistribution = () => {
               <div key={city.name} className="flex flex-col gap-1">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-bold text-primary/60 w-4">0{idx + 1}</span>
-                    <span className="text-xs font-medium text-foreground">{city.name}</span>
+                    <span className="text-xs font-bold text-primary/60 w-4">0{idx + 1}</span>
+                    <span className="text-sm font-medium text-foreground">{city.name}</span>
                   </div>
-                  <span className="text-[10px] text-muted-foreground">{city.value.toLocaleString()} leads</span>
+                  <span className="text-xs text-muted-foreground">{city.value.toLocaleString()} leads</span>
                 </div>
                 <div className="h-1 rounded-full bg-muted/50 overflow-hidden ml-6 mr-0">
                   <div className="h-full rounded-full bg-primary transition-all duration-500" style={{ width: `${city.percent}%` }} />
@@ -229,7 +229,7 @@ const GeoDistribution = () => {
           <div className="flex items-start gap-2">
             <MapPin className="h-3 w-3 text-primary mt-0.5 shrink-0" />
             <div>
-              <p className="text-[10px] font-semibold text-primary mb-0.5">Regional Insight</p>
+              <h2 className="text-sm font-semibold text-primary mb-0.5">Regional Insight</h2>
               <p className="text-[10px] text-muted-foreground leading-relaxed">
                 {selectedRegion === "National"
                   ? "Southeast concentrates 72% of total leads with 2.4% above-average conversion during peak hours (14h-16h)."
