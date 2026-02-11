@@ -1,4 +1,5 @@
 import DashboardLayout from "@/components/layout/DashboardLayout";
+import DraggableGrid from "@/components/widgets/DraggableGrid";
 import KPICard from "@/components/widgets/KPICard";
 import { kpiData } from "@/data/mockData";
 import { SALES_KPIS, SALES_BY_KIT_MOCK, WEEKLY_APPOINTMENTS_MOCK, RECENT_TRANSACTIONS } from "@/data/salesData";
@@ -55,16 +56,16 @@ const Index = () => {
 
   return (
     <DashboardLayout title="Visão Geral" breadcrumb={["LIA Analytics", "Visão Geral"]}>
-      <div className="flex flex-col gap-3">
+      <DraggableGrid storageKey="overview">
         {/* Lead KPIs */}
-        <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
+        <DraggableGrid storageKey="overview-lead-kpis" className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
           {kpiData.map((kpi) => (
             <KPICard key={kpi.title} {...kpi} />
           ))}
-        </div>
+        </DraggableGrid>
 
         {/* Sales KPIs row */}
-        <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-3">
+        <DraggableGrid storageKey="overview-sales-kpis" className="grid grid-cols-1 gap-2.5 sm:grid-cols-3">
           {salesKpis.map((k) => (
             <div key={k.title} className="rounded-xl border border-border bg-card p-5 shadow-sm">
               <div className="mb-2 flex items-center justify-between">
@@ -76,10 +77,10 @@ const Index = () => {
               <p className="font-display text-2xl font-bold text-foreground">{k.value}</p>
             </div>
           ))}
-        </div>
+        </DraggableGrid>
 
         {/* Charts row */}
-        <div className="grid grid-cols-1 gap-2.5 lg:grid-cols-2">
+        <DraggableGrid storageKey="overview-charts" className="grid grid-cols-1 gap-2.5 lg:grid-cols-2">
           {/* Revenue by Kit */}
           <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
             <h2 className="mb-3 font-display text-sm font-semibold text-foreground">Receita por Kit</h2>
@@ -123,7 +124,7 @@ const Index = () => {
               </ResponsiveContainer>
             </div>
           </div>
-        </div>
+        </DraggableGrid>
 
         {/* Recent Transactions */}
         <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
@@ -157,7 +158,7 @@ const Index = () => {
             </TableBody>
           </Table>
         </div>
-      </div>
+      </DraggableGrid>
     </DashboardLayout>
   );
 };
