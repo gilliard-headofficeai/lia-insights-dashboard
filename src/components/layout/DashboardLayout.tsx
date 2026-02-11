@@ -13,7 +13,7 @@ const DashboardLayout = ({ children, title, breadcrumb }: DashboardLayoutProps) 
       <AppSidebar />
       <div className="ml-56 flex h-screen flex-col">
         <AppHeader title={title} breadcrumb={breadcrumb} />
-        <main className="flex flex-1 flex-col overflow-auto p-2.5 pb-2.5">{children}</main>
+        <main className="flex-1 overflow-auto p-2.5 pb-2.5">{children}</main>
       </div>
     </div>
   );
